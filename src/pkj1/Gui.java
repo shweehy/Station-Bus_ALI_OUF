@@ -1,15 +1,22 @@
 package pkj1;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 
+import java.util.ArrayList;
+import java.util.Observable;
+
 public class Gui extends Application {
     String fileName;
+    Stage stage2;//second screen
     int flag1; // flag of radio Buttons 'Mangers''Employee''Users'
     Scene scene2 , scene ;
     Add_User x = new Add_User();
@@ -42,8 +49,10 @@ public class Gui extends Application {
 
        b2.setOnAction(e->{
            int v = x.CheckAbility(fileName,t1.getText(),p1.getText());
-           if(v==1)
+           if(v==1) {
                l4.setText("login successful");
+               Second_Screen(primaryStage);
+                           }
            else
                l4.setText("Unsuccessful");
        });
@@ -180,6 +189,20 @@ public class Gui extends Application {
 
         s1 = new Scene(g1);
         return s1;
+    }
+    void Second_Screen(Stage st){
+        Table t1 = new Table();
+        stage2 = new Stage();
+        ArrayList<ArrayList<String>> AList = new ArrayList<ArrayList<String>>();
+        AList=x.ReadFile("users.txt");
+        TableView<Trips> table=t1.table();
+
+
+        HBox h1 = new HBox(10);
+        h1.getChildren().addAll(table);
+        Scene s1 = new Scene(h1);
+        stage2.setScene(s1);
+        stage2.show();
     }
 
 
