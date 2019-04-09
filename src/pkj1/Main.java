@@ -7,24 +7,36 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception{
-        String fileName = "test1.txt";
+       // b.AAAAA();
+        String fileName = "users.txt";
         files o = new files();
         Gui d = new Gui();
 //        d.Start(args);
-        o.ReadFile1(fileName);
+//        o.ReadFile1(fileName);
 // o.WriteFile(fileName);
-//        ArrayList<String> arrli = new ArrayList<String>();
-//       arrli= o.ReadFile(fileName);
-//        for (String a :arrli)
+        ArrayList<String> arrli = new ArrayList<String>();
+       //arrli= o.ReadFile(fileName);
+        ArrayList<ArrayList<String>> AList =
+                new ArrayList<ArrayList<String>>();
+            AList = o.ReadFile(fileName);
+//        for (ArrayList<ArrayList<String>> a :arrli)
 //        {
 //            System.out.println(a);
 //
 //        }
-////        System.out.println(arrli);
+//        AList.remove(8);
+//        AList.remove(1);
+//        for(int i = 0 ; i<AList.size();i++)
+//        {
+//            if((AList.get(i).get(0).equals("")))
+//                AList.remove(i);
+//        }
+        System.out.println(AList);
+        o.deleteInFIles(fileName,1);
 //        arrli.remove("shawky,14");
-////       o.OverWrite(fileName);
+//       o.OverWrite(fileName);
 //        System.out.println("**************************");
-////        System.out.println(arrli);
+//        System.out.println(arrli);
 //        for (String a :arrli)
 //        {
 //            System.out.println(a);
