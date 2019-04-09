@@ -1,18 +1,16 @@
 package pkj1;
 
-import com.sun.org.apache.bcel.internal.generic.RETURN;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
-import sun.plugin2.liveconnect.JSExceptions;
 
 public class Gui extends Application {
+    String fileName;
+    int flag1; // flag of radio Buttons 'Mangers''Employee''Users'
     Scene scene2 , scene ;
     Add_User x = new Add_User();
     public void start(Stage primaryStage) {
@@ -32,7 +30,7 @@ public class Gui extends Application {
         button2.setToggleGroup(group);
         RadioButton button3 = new RadioButton("User");
         button3.setToggleGroup(group);
-
+// scene of login
         TextField t1 = new TextField();
         PasswordField p1 = new PasswordField();
 
@@ -43,14 +41,36 @@ public class Gui extends Application {
 
 
        b2.setOnAction(e->{
-           int v = x.CheckAbility("users.txt",t1.getText(),p1.getText());
+           int v = x.CheckAbility(fileName,t1.getText(),p1.getText());
            if(v==1)
                l4.setText("login successful");
            else
                l4.setText("Unsuccessful");
        });
 
+        b1.setOnAction(  e->
+                {
+                    if (button1.isSelected()){
+                        fileName = "Manger.txt";
+                        b4.setDisable(true);
+                        flag1=1;
+                    }
 
+                    else if (button2.isSelected()){
+                        fileName = "drivers.txt";
+                        b4.setDisable(true);
+                        flag1=2;
+                    }
+                    else if (button3.isSelected()){
+                        fileName = "users.txt";
+                        flag1=3;
+                        b4.setDisable(false);
+
+                    }
+
+                      primaryStage.setScene(scene2);
+
+                });
         GridPane gridPane = new GridPane();
         GridPane g1 = new GridPane();
         GridPane g2 = new GridPane();
@@ -85,8 +105,8 @@ public class Gui extends Application {
         scene2 = new Scene(g1);
       //  SignUp = new Scene(g2);
 
-        b1.setOnAction(e->primaryStage.setScene(scene2));
-        b4.setOnAction(e->primaryStage.setScene(SignUp()));
+
+        b4.setOnAction(e->primaryStage.setScene(SignUp(primaryStage)));
 
         b3.setOnAction(e->{primaryStage.setScene(scene);
         t1.setText("");
@@ -102,7 +122,7 @@ public class Gui extends Application {
         Application.launch(args);
     }
 
-    Scene SignUp() {
+    Scene SignUp(Stage p) {
         Scene s1 ;
         Button b1 = new Button("Submit");
         Button b2 = new Button("Back");
@@ -133,7 +153,7 @@ public class Gui extends Application {
                 l5.setText("your Password is not matched");
         });
         b2.setOnAction(e->{
-            return;
+            p.setScene(scene);
         });
 
         GridPane g1= new GridPane();
@@ -161,4 +181,6 @@ public class Gui extends Application {
         s1 = new Scene(g1);
         return s1;
     }
+
+
 }
