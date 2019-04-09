@@ -11,7 +11,7 @@ public class Main {
         String fileName = "users.txt";
         files o = new files();
         Gui d = new Gui();
-//        d.Start(args);
+        d.Start(args);
 //        o.ReadFile1(fileName);
 // o.WriteFile(fileName);
         ArrayList<String> arrli = new ArrayList<String>();
@@ -31,8 +31,12 @@ public class Main {
 //            if((AList.get(i).get(0).equals("")))
 //                AList.remove(i);
 //        }
+        LinkedList<Integer> object = new LinkedList<Integer>();
+        object = o.Searched(fileName,"Ahmed");
+        System.out.println("the size: "+object.size());
+        System.out.println(object);
         System.out.println(AList);
-        o.deleteInFIles(fileName,1);
+//        o.deleteInFIles(fileName,1);
 //        arrli.remove("shawky,14");
 //       o.OverWrite(fileName);
 //        System.out.println("**************************");

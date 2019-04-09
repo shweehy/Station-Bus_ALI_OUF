@@ -1,6 +1,5 @@
 package pkj1;
 
-import javax.swing.*;
 import java.io.*;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -68,5 +67,23 @@ public class files {
             System.out.println("Eror1111r");
         }
     }
+  public LinkedList Searched (String fileName, String Name){
+
+      LinkedList<Integer> object = new LinkedList<Integer>();
+
+      ArrayList<ArrayList<String>> AList = new ArrayList<ArrayList<String>>();
+        AList = ReadFile(fileName);
+      int Searched_index []=new int[AList.size()];
+
+        for(int i =0; i < AList.size();i++)
+        {
+            if (AList.get(i).get(0).equals(Name))
+                object.add(i);
+
+        }
+
+
+      return object;
+  }
 
 }

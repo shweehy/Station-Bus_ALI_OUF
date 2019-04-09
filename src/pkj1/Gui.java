@@ -12,12 +12,14 @@ import javafx.scene.layout.*;
 
 public class Gui extends Application {
     Scene scene2 , scene;
+    Check_Login x = new Check_Login();
     public void start(Stage primaryStage) {
 
 
         Label l1 = new Label("Welcome to the Station");
         Label l2 = new Label("UserName");
         Label l3 = new Label("Password");
+        Label l4= new Label("");
 
 
         ToggleGroup group = new ToggleGroup();
@@ -37,9 +39,19 @@ public class Gui extends Application {
         Button b3 = new Button("Back");
         Button b4 = new Button("Sign-Up");
 
+
+       b2.setOnAction(e->{
+           int v = x.CheckAbility("users.txt",t1.getText(),p1.getText());
+           if(v==1)
+               l4.setText("login sucessfull");
+           else
+               l4.setText("Unsucsseful");
+       });
+
+
         GridPane gridPane = new GridPane();
         GridPane g1 = new GridPane();
-        g1.setMinSize(300, 100);
+        g1.setMinSize(500, 100);
         g1.setPadding(new Insets(10, 10, 10, 10));
         g1.setVgap(5);
         g1.setHgap(5);
@@ -52,6 +64,7 @@ public class Gui extends Application {
         g1.add(b2,3,2);
         g1.add(b3,2,2);
         g1.add(b4,1,2);
+        g1.add(l4,2,4);
 
         gridPane.setMinSize(300, 100);
         gridPane.setPadding(new Insets(10, 10, 10, 10));
