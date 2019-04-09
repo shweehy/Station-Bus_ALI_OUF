@@ -9,16 +9,16 @@ public class Main {
     public static void main(String[] args) throws Exception{
        // b.AAAAA();
         String fileName = "users.txt";
-        files o = new files();
+        Check_Login o = new Check_Login();
         Gui d = new Gui();
         d.Start(args);
 //        o.ReadFile1(fileName);
 // o.WriteFile(fileName);
-        ArrayList<String> arrli = new ArrayList<String>();
-       //arrli= o.ReadFile(fileName);
-        ArrayList<ArrayList<String>> AList =
-                new ArrayList<ArrayList<String>>();
-            AList = o.ReadFile(fileName);
+//        ArrayList<String> arrli = new ArrayList<String>();
+//       //arrli= o.ReadFile(fileName);
+//        ArrayList<ArrayList<String>> AList =
+//                new ArrayList<ArrayList<String>>();
+//            AList = o.ReadFile(fileName);
 //        for (ArrayList<ArrayList<String>> a :arrli)
 //        {
 //            System.out.println(a);
@@ -35,7 +35,7 @@ public class Main {
         object = o.Searched(fileName,"Ahmed");
         System.out.println("the size: "+object.size());
         System.out.println(object);
-        System.out.println(AList);
+       // System.out.println(AList);
 //        o.deleteInFIles(fileName,1);
 //        arrli.remove("shawky,14");
 //       o.OverWrite(fileName);

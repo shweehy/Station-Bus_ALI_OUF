@@ -43,9 +43,9 @@ public class Gui extends Application {
        b2.setOnAction(e->{
            int v = x.CheckAbility("users.txt",t1.getText(),p1.getText());
            if(v==1)
-               l4.setText("login sucessfull");
+               l4.setText("login successful");
            else
-               l4.setText("Unsucsseful");
+               l4.setText("Unsuccessful");
        });
 
 

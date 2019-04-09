@@ -5,7 +5,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 
-public class files {
+abstract public class files {
     public void OverWrite(String fileName) throws Exception {
         FileWriter fileWriter = new FileWriter(fileName,true);
         fileWriter.write("\n"+"Ahmed,123,14");
