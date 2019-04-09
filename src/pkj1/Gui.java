@@ -1,5 +1,6 @@
 package pkj1;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -9,10 +10,11 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
+import sun.plugin2.liveconnect.JSExceptions;
 
 public class Gui extends Application {
-    Scene scene2 , scene;
-    Check_Login x = new Check_Login();
+    Scene scene2 , scene ;
+    Add_User x = new Add_User();
     public void start(Stage primaryStage) {
 
 
@@ -51,6 +53,7 @@ public class Gui extends Application {
 
         GridPane gridPane = new GridPane();
         GridPane g1 = new GridPane();
+        GridPane g2 = new GridPane();
         g1.setMinSize(500, 100);
         g1.setPadding(new Insets(10, 10, 10, 10));
         g1.setVgap(5);
@@ -78,12 +81,17 @@ public class Gui extends Application {
         gridPane.add(button3,2,1);
         gridPane.add(b1,3,3);
 
-        Scene scene = new Scene(gridPane);
-        Scene scene2 = new Scene(g1);
+        scene = new Scene(gridPane);
+        scene2 = new Scene(g1);
+      //  SignUp = new Scene(g2);
 
         b1.setOnAction(e->primaryStage.setScene(scene2));
+        b4.setOnAction(e->primaryStage.setScene(SignUp()));
 
-        b3.setOnAction(e->primaryStage.setScene(scene));
+        b3.setOnAction(e->{primaryStage.setScene(scene);
+        t1.setText("");
+        p1.setText("");
+        });
         primaryStage.setTitle("login in page");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -92,5 +100,65 @@ public class Gui extends Application {
 
     public void Start(String[] args) {
         Application.launch(args);
+    }
+
+    Scene SignUp() {
+        Scene s1 ;
+        Button b1 = new Button("Submit");
+        Button b2 = new Button("Back");
+        Label l1 = new Label("Welcome Sign-Up Page");
+        Label l2 = new Label("UserName");
+        Label l3 = new Label("Password");
+        Label l4 = new Label("Re-Password");
+        Label l5 = new Label();
+
+        TextField T1 = new TextField();
+        PasswordField p1 = new PasswordField();
+        PasswordField p2 = new PasswordField();
+
+        b1.setOnAction(e->{
+            if(p1.getText().equals(p2.getText())){
+               try{
+                    x.OverWrite("users.txt",T1.getText(),p1.getText());
+                    l5.setText("your Account hasbeen created ");
+                    b1.setDisable(true);
+                }
+                catch (Exception ex){
+                   l5.setText("Error in system");
+                }
+
+
+            }
+            else
+                l5.setText("your Password is not matched");
+        });
+        b2.setOnAction(e->{
+            return;
+        });
+
+        GridPane g1= new GridPane();
+        g1.setMinSize(500, 100);
+        g1.setPadding(new Insets(10, 10, 10, 10));
+        g1.setVgap(5);
+        g1.setHgap(5);
+        g1.setAlignment(Pos.CENTER);
+
+        g1.add(l1,1,0);
+        g1.add(T1,1,1);
+        g1.add(l2,0,1);
+        g1.add(p1,1,2);
+        g1.add(l3,0,2);
+        g1.add(p2,1,3);
+        g1.add(l4,0,3);
+        g1.add(l5,1,4);
+        g1.add(b1,2,5);
+        g1.add(b2,1,5);
+
+
+
+
+
+        s1 = new Scene(g1);
+        return s1;
     }
 }
