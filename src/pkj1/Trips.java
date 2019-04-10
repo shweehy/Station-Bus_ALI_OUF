@@ -7,13 +7,7 @@ public class Trips {
     private String ticketPrice;
     private String availableSeats;
 
-//    public Trips() {
-//        this.from = "";
-//        this.to = "";
-//        this.vehicle = "";
-//        this.ticketPrice = "";
-//        this.availableSeats = "";
-//    }
+    public Trips(){}
 
     public String getFrom() {
         return from;

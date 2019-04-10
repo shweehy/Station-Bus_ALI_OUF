@@ -85,5 +85,19 @@ abstract public class files {
 
       return object;
   }
+    String Searched_iD (String fileName,String id){
+        ArrayList<ArrayList<String>> AList = new ArrayList<ArrayList<String>>();
+        String Searched=null;
+        AList = ReadFile(fileName);
+        for (int i = 0; i < AList.size();i++)
+        {   if (AList.get(i).get(2).equals(id))
+            Searched= AList.get(i).get(0);
+
+
+
+        }
+        return Searched;
+
+    }
 
 }
