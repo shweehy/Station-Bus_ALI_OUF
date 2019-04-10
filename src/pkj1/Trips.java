@@ -7,21 +7,13 @@ public class Trips {
     private String ticketPrice;
     private String availableSeats;
 
-    public Trips() {
-        this.from = "";
-        this.to = "";
-        this.vehicle = "";
-        this.ticketPrice = "";
-        this.availableSeats = "";
-    }
-
-    public Trips(String from, String to, String vehicle, String ticketPrice, String availableSeats) {
-        this.from = from;
-        this.to = to;
-        this.vehicle = vehicle ;
-        this.ticketPrice= ticketPrice;
-        this.availableSeats = availableSeats;
-    }
+//    public Trips() {
+//        this.from = "";
+//        this.to = "";
+//        this.vehicle = "";
+//        this.ticketPrice = "";
+//        this.availableSeats = "";
+//    }
 
     public String getFrom() {
         return from;
@@ -47,11 +39,11 @@ public class Trips {
         this.vehicle = vehicle;
     }
 
-    public String getticketPrice() {
+    public String getTicketPrice() {
         return ticketPrice;
     }
 
-    public void setTicketPrice(double ticktePrice) {
+    public void setTicketPrice(String ticketPrice) {
         this.ticketPrice = ticketPrice;
     }
 
@@ -59,9 +51,16 @@ public class Trips {
         return availableSeats;
     }
 
-    public void setAvailableSeats(int availableeats) {
+    public void setAvailableSeats(String availableSeats) {
         this.availableSeats = availableSeats;
     }
 
+    public Trips(String from, String to, String vehicle, String ticketPrice, String availableSeats) {
+        this.from = from;
+        this.to = to;
+        this.vehicle = vehicle ;
+        this.ticketPrice= ticketPrice;
+        this.availableSeats = availableSeats;
+    }
 
-}
+   }

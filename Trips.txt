@@ -1,2 +1,2 @@
-Alaxandria,cairo,bus,130,75
-Cairo,Alandria,Car,140,76
+Alaxandria,Cairo,bus,130,75
+Cairo,Alaxandria,Car,140,76

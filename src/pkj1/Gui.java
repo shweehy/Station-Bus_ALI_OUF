@@ -17,6 +17,8 @@ import java.util.Observable;
 public class Gui extends Application {
     String fileName;
     Stage stage2;//second screen
+    Stage stage3;//User Stage
+    Stage primaryStage;
     int flag1; // flag of radio Buttons 'Mangers''Employee''Users'
     Scene scene2 , scene ;
     Add_User x = new Add_User();
@@ -51,7 +53,8 @@ public class Gui extends Application {
            int v = x.CheckAbility(fileName,t1.getText(),p1.getText());
            if(v==1) {
                l4.setText("login successful");
-               Second_Screen(primaryStage);
+//               Second_Screen();
+                    User_Screen(flag1);
                            }
            else
                l4.setText("Unsuccessful");
@@ -190,20 +193,77 @@ public class Gui extends Application {
         s1 = new Scene(g1);
         return s1;
     }
-    void Second_Screen(Stage st){
+
+    void Second_Screen(){
+
+
+//        Table t1 = new Table("Trips.txt");
         Table t1 = new Table();
         stage2 = new Stage();
-        ArrayList<ArrayList<String>> AList = new ArrayList<ArrayList<String>>();
-        AList=x.ReadFile("users.txt");
+        //ArrayList<ArrayList<String>> AList = new ArrayList<ArrayList<String>>();
+      //  AList=x.ReadFile("users.txt");
         TableView<Trips> table=t1.table();
 
 
         HBox h1 = new HBox(10);
         h1.getChildren().addAll(table);
         Scene s1 = new Scene(h1);
+        stage2.setTitle("Reservation Mode");
         stage2.setScene(s1);
         stage2.show();
     }
 
+    void User_Screen(int flage) {
+        Scene s1;
+        TableView<Trips> table;
+        Button b1 = new Button ("Reservation");
+        Button b2 = new Button ("My Reservations");
+        Button b3 = new Button("Users");
+        Button b4 = new Button("Drivers");
+        Button b6 = new Button("Reserved Trips");
+        Button b5 = new Button("Trips");
+        HBox h1 = new HBox(10);
+        HBox h2 = new HBox(10);
+        h1.getChildren().addAll(b1,b2);
+        h2.getChildren().addAll(b3,b4,b5,b6);
+        GridPane g1= new GridPane();
+//        g1.setMinSize(600, 600);
+        g1.setPadding(new Insets(20, 20, 20, 20));
+        g1.setVgap(5);
+        g1.setHgap(5);
+        g1.setAlignment(Pos.CENTER);
+
+
+
+
+
+        stage3 = new Stage();
+        StackPane st = new StackPane(g1);
+        st.setMinSize(600,500);
+        if(flage==1){
+        stage3.setTitle("Welcome Manger");
+            Table t1 = new Table("Reserved.txt");
+        g1.add(h2,0,3);
+        table=t1.table();
+        g1.add(table,0,0);
+        }
+        else if (flage==3){
+            stage3.setTitle("Welcome User");
+            Table t1 = new Table("Trips.txt");
+            g1.add(h1,0,3);
+            table=t1.table();
+            g1.add(table,0,0);
+        }
+        else{
+            stage3.setTitle("Welcome Driver");
+//            s1 = new Scene(h1);
+            s1=null;
+
+        }
+        s1 = new Scene(st);
+        stage3.setScene(s1);
+        stage3.show();
+
+    }
 
 }
