@@ -1,2 +1,6 @@
-Alaxandria,Cairo,bus,130,75
-Cairo,Alaxandria,Car,140,76
+Alaxandria,Cairo,Bus,130,75
+Cairo,Alaxandria,MiniBus,140,76
+Giza,Alexandria,MiniBus,12,12
+Giza,Cairo,MiniBus,55,55
+Suez,Giza,MiniBus,885,87
+Giza,Suez,MiniBus,11,11
