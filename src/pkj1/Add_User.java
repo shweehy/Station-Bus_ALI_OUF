@@ -58,11 +58,11 @@ public class Add_User extends Check_Login {
 
     }
 
-    public void Add_trip1(String To,String From,String Vechile,String Price,String Seats,String Id,String fileName) {
+    public void Add_trip1(String To,String From,String Vechile,String Price,String Seats,String Id,String Driver,String fileName) {
 //            String fileName = "Trips.txt";
         try {
             FileWriter fileWriter = new FileWriter(fileName,true);
-            fileWriter.write("\n"+To+","+From+","+Vechile+","+Price+","+Seats+","+Id);
+            fileWriter.write("\n"+To+","+From+","+Vechile+","+Price+","+Seats+","+Id+","+Driver);
             fileWriter.close();
         }
         catch (Exception e){

@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) throws Exception{
        // b.AAAAA();
         String fileName = "users.txt";
-        Check_Login o = new Check_Login();
+//        Check_Login o = new Check_Login();
         Gui d = new Gui();
         d.Start(args);
 //        o.ReadFile1(fileName);
@@ -31,10 +31,10 @@ public class Main {
 //            if((AList.get(i).get(0).equals("")))
 //                AList.remove(i);
 //        }
-        LinkedList<Integer> object = new LinkedList<Integer>();
-        object = o.Searched(fileName,"Ahmed");
-        System.out.println("the size: "+object.size());
-        System.out.println(object);
+//        LinkedList<Integer> object = new LinkedList<Integer>();
+//        object = o.Searched(fileName,"Ahmed");
+//        System.out.println("the size: "+object.size());
+//        System.out.println(object);
        // System.out.println(AList);
 //        o.deleteInFIles(fileName,1);
 //        arrli.remove("shawky,14");

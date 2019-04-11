@@ -14,7 +14,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Gui1 extends Gui {
+    Converter_Strings convert = new Converter_Strings();
+
     void User_Screen(int flage, int id) {
+
         Scene s1;
         TableView<Trips> table;
         TableView<Trips_reservation> table1;
@@ -79,15 +82,14 @@ public class Gui1 extends Gui {
         if (flage == 1) {
             stage3.setTitle("Welcome Manger");
             Table t1 = new Table("Trips.txt");
-            driver = 0;
+        //    driver = 0;
             Table t2 = new Table("Reserved.txt");
             g1.add(h2, 0, 3);
             table = t1.table();
             //g1.add(table, 0, 0);
-            table1 = t2.table_re(id, driver);
+            table1 = t2.table_re(id);
 
             b5.setOnAction(e -> {
-                Converter_Strings convert = new Converter_Strings();
                 HBox H3 = new HBox(10);
                 HBox H4 = new HBox(10);
                 H3.getChildren().addAll(C1_From, C1_To, C1_Vechile,C1_Driver, T_price, T_Seats);
@@ -112,6 +114,7 @@ public class Gui1 extends Gui {
             });
             deleteButton.setOnAction(eb -> {
                 ObservableList<Trips> tripSelected, alltrips;
+
                 String a = table.getSelectionModel().getSelectedItem().getFrom();
                 String b = table.getSelectionModel().getSelectedItem().getTo();
                 String c = table.getSelectionModel().getSelectedItem().getVehicle();
@@ -138,7 +141,7 @@ public class Gui1 extends Gui {
             b6.setOnAction(e->{
                 g1.getChildren().remove(table1);
                 g1.getChildren().remove(table);
-                t2.table_re(id, driver);
+                t2.table_re(id);
                 g1.add(table1, 0, 0);
             });
 
@@ -150,7 +153,7 @@ public class Gui1 extends Gui {
             table = t1.table();
             // driver here is not constatn
             driver = 0;
-            table1 = t2.table_re(id, driver);
+            table1 = t2.table_re(id);
             b2.setOnAction(ed -> {
                 g1.getChildren().remove(table);
                 g1.getChildren().remove(table1);
@@ -164,7 +167,7 @@ public class Gui1 extends Gui {
             b1.setOnAction(ec -> {
                 g1.getChildren().remove(table1);
                 g1.getChildren().remove(table);
-                t2.table_re(id, driver);
+                t2.table_re(id);
                 g1.add(table, 0, 0);
                 l_summit.setText("");
                 B_Delete_Reservation.setDisable(true);
@@ -179,11 +182,13 @@ public class Gui1 extends Gui {
                 String d = table.getSelectionModel().getSelectedItem().getTicketPrice();
                 String e = table.getSelectionModel().getSelectedItem().getAvailableSeats();
                 String f = Integer.toString(id);
-                x.Add_trip1(a, b, c, d, e, f, "Reserved.txt");
+                String g= convert.search_Driver_from_file(a,b,c,d,e);
+                x.Add_trip1(a, b, c, d, e, f, g,"Reserved.txt");
                 l_summit.setText("Summit successfully");
             });
             B_Delete_Reservation.setOnAction(ef -> {
                 ObservableList<Trips_reservation> tripSelected, alltrips;
+
                 String a = table1.getSelectionModel().getSelectedItem().getFrom();
                 String b = table1.getSelectionModel().getSelectedItem().getTo();
                 String c = table1.getSelectionModel().getSelectedItem().getVehicle();

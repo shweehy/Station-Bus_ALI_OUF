@@ -59,9 +59,9 @@ public class Table extends files {
         ObservableList<Trips> trips = FXCollections.observableArrayList();
         ArrayList<ArrayList<String>> AList = new ArrayList<ArrayList<String>>();
         AList = ReadFile(fileName);
-        String A[] = new String[5];
+        String A[] = new String[6];
         for (int i = 0; i < AList.size(); i++) {
-            for (int j = 0; j < 5; j++) {
+            for (int j = 0; j < 6; j++) {
                 A[j] = AList.get(i).get(j);
 
             }
@@ -74,7 +74,7 @@ public class Table extends files {
 
     }
 
-    TableView<Trips_reservation> table_re(int d, int f) {
+    TableView<Trips_reservation> table_re(int d) {
         TableView<Trips_reservation> table;
 
 
@@ -111,7 +111,7 @@ public class Table extends files {
 
 
         table = new TableView<>();
-        table.setItems(getTrips1(d, f));
+        table.setItems(getTrips1(d));
         table.getColumns().addAll(fromColumn, toColumn, vehicleColumn, TicketPrice, availableSeatsColumn,Usercolu,Drivercolu);
 //        table.getColumns().addAll(fromColumn , toColumn , vehicleColumn , ticketPriceColumn , availableSeatsColumn);
 
@@ -119,7 +119,7 @@ public class Table extends files {
 
     }
 
-    public ObservableList<Trips_reservation> getTrips1(int d, int f) {
+    public ObservableList<Trips_reservation> getTrips1(int d) {
 //        Converter_Strings xo = new Converter_Strings();
         ObservableList<Trips_reservation> trips = FXCollections.observableArrayList();
         ArrayList<ArrayList<String>> AList = new ArrayList<ArrayList<String>>();
@@ -127,22 +127,26 @@ public class Table extends files {
         AList = ReadFile(fileName);
         String A[] = new String[7];
         for (int i = 0; i < AList.size(); i++) {
-            for (int j = 0; j < 5; j++) {
-                A[j] = AList.get(i).get(j);
+            if (Integer.toString(d).equals(AList.get(i).get(5))) {
+                for (int j = 0; j < 5; j++) {
+                    A[j] = AList.get(i).get(j);
+                    A[6] = AList.get(i).get(6);
 
+                }
+                A[5] = Searched_iD("users.txt", Integer.toString(d));
             }
-            A[5] = Searched_iD("users.txt",Integer.toString(d));
-            A[6] = Searched_iD("drivers.txt",Integer.toString(f));
-
-            trips.add(new Trips_reservation(((String) A[0]), A[1], A[2], A[3], A[4], A[5], A[6]));
-
+            if (Integer.toString(d).equals(AList.get(i).get(5)))
+                trips.add(new Trips_reservation(((String) A[0]), A[1], A[2], A[3], A[4], A[5], A[6]));
         }
 
-        return trips;
 
+
+
+        return trips;
+    }
 
     }
-}
+
 
 
 

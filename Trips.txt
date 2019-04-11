@@ -1,2 +1,5 @@
-Dahab,Giza,Lemozine,12,21,0
-Cairo,Giza,MiniBus,55,55,2
+Dahab,Giza,Lemozine,12,21,0,
+Cairo,Giza,MiniBus,55,55,2,
+Alexandria,Giza,Bus,12,500,3,
+Alexandria,Dahab,Bus,12,12,1,
+Alexandria,Suez,Lemozine,200,12,3
