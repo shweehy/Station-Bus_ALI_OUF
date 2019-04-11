@@ -90,22 +90,23 @@ public class Table extends files {
         vehicleColumn.setMinWidth(100);
         vehicleColumn.setCellValueFactory(new PropertyValueFactory<>("vehicle"));
 
+        TableColumn<Trips_reservation, String> TicketPrice = new TableColumn<>("TicketPrice");
+        TicketPrice.setMinWidth(100);
+        TicketPrice.setCellValueFactory(new PropertyValueFactory<>("ticketPrice"));
+
         TableColumn<Trips_reservation, String> availableSeatsColumn = new TableColumn<>("Available Seats");
         availableSeatsColumn.setMinWidth(120);
         availableSeatsColumn.setCellValueFactory(new PropertyValueFactory<>("availableSeats"));
 
 
-        TableColumn<Trips_reservation, String> TicketPrice = new TableColumn<>("TicketPrice");
-        TicketPrice.setMinWidth(100);
-        TicketPrice.setCellValueFactory(new PropertyValueFactory<>("ticketPrice"));
 
         TableColumn<Trips_reservation, String> Usercolu = new TableColumn<>("User");
-        TicketPrice.setMinWidth(100);
-        TicketPrice.setCellValueFactory(new PropertyValueFactory<>("User"));
+        Usercolu.setMinWidth(100);
+        Usercolu.setCellValueFactory(new PropertyValueFactory<>("User"));
 
         TableColumn<Trips_reservation, String> Drivercolu = new TableColumn<>("Driver");
-        TicketPrice.setMinWidth(100);
-        TicketPrice.setCellValueFactory(new PropertyValueFactory<>("Driver"));
+        Drivercolu.setMinWidth(100);
+        Drivercolu.setCellValueFactory(new PropertyValueFactory<>("Driver"));
 
 
 
@@ -119,8 +120,10 @@ public class Table extends files {
     }
 
     public ObservableList<Trips_reservation> getTrips1(int d, int f) {
+//        Converter_Strings xo = new Converter_Strings();
         ObservableList<Trips_reservation> trips = FXCollections.observableArrayList();
         ArrayList<ArrayList<String>> AList = new ArrayList<ArrayList<String>>();
+
         AList = ReadFile(fileName);
         String A[] = new String[7];
         for (int i = 0; i < AList.size(); i++) {

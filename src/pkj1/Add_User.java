@@ -14,8 +14,8 @@ public class Add_User extends Check_Login {
         fileWriter.write("\n"+Name+","+Pass+","+i);
         fileWriter.close();
     }
-    public void Add_trip(String To,String From,String Vechile,String Price,String Seats) {
-            String fileName = "Trips.txt";
+    public void Add_trip(String To,String From,String Vechile,String Price,String Seats,String fileName) {
+//            String fileName = "Trips.txt";
         try {
             FileWriter fileWriter = new FileWriter(fileName,true);
             fileWriter.write("\n"+To+","+From+","+Vechile+","+Price+","+Seats);
@@ -58,6 +58,51 @@ public class Add_User extends Check_Login {
 
     }
 
+    public void Add_trip1(String To,String From,String Vechile,String Price,String Seats,String Id,String fileName) {
+//            String fileName = "Trips.txt";
+        try {
+            FileWriter fileWriter = new FileWriter(fileName,true);
+            fileWriter.write("\n"+To+","+From+","+Vechile+","+Price+","+Seats+","+Id);
+            fileWriter.close();
+        }
+        catch (Exception e){
 
+        }
+
+    }
+    void Delete_Item_Reserved(String From,String To,String Vechile,String Price,String Seats,String User){
+        String fileName = "Reserved.txt";
+        ArrayList<ArrayList<String>> AList = new ArrayList<ArrayList<String>>();
+        Converter_Strings xo = new Converter_Strings();
+
+        AList = ReadFile(fileName);
+        for (int i = 0; i < AList.size();i++)
+        { if(AList.get(i).get(0).equals(From)&&AList.get(i).get(1).equals(To)&&AList.get(i).get(2).equals(Vechile)&&AList.get(i).get(3).equals(Price)&&AList.get(i).get(4).equals(Seats)&&AList.get(i).get(5).equals(xo.stringConverter(User)))
+        {AList.remove(i);
+        break;
+        }
+        }
+        try {
+            FileWriter fileWriter = new FileWriter(fileName, false) ;
+            for (int i = 0; i < AList.size(); i++) {
+                for(int j =0; j<AList.get(i).size();j++) {
+
+                    fileWriter.write(AList.get(i).get(j)+",");
+
+
+                }
+                if (i!=AList.size()-1)
+                    fileWriter.write("\n");
+
+            }
+            fileWriter.close();
+
+
+        }
+        catch (Exception e){
+            System.out.println("Eror1111r");
+        }
+
+    }
 
 }

@@ -1,8 +1,7 @@
-ali,123,1
-ahmed,102,2
-shawky,12,3
-ouf,al,4
-ali,aa,5
-aa,aa,6
-ali12,ah,7
-nadine,nasa,8
+ali,123,0
+ahmed,102,1
+shawky,12,2
+ouf,al,3
+aa,aa,5
+ali12,ah,6
+nadine,nasa,7

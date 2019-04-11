@@ -1,0 +1,4 @@
+Alexandria,Giza,Lemozine,12,12,0,
+Alexandria,Cairo,Bus,655,66,0,
+Dahab,Cairo,Lemozine,12,21,0,
+Alexandria,Cairo,Bus,655,66,0

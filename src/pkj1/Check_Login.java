@@ -4,7 +4,13 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Check_Login extends files{
-     int CheckAbility(String fileName,String Name,String Pass){
+    int id;
+
+    public int getId() {
+        return id;
+    }
+
+    int CheckAbility(String fileName, String Name, String Pass){
          LinkedList<Integer> object = new LinkedList<Integer>();
          object = super.Searched(fileName,Name);
          if(object.size()==0)
@@ -14,7 +20,10 @@ public class Check_Login extends files{
              ArrayList<ArrayList<String>> AList = new ArrayList<ArrayList<String>>();
              AList = ReadFile(fileName);
              if((AList.get(object.get(0)).get(0).equals(Name))&&(AList.get(object.get(0)).get(1).equals(Pass)))
+             {
+                 id= Integer.parseInt(AList.get(object.get(0)).get(2));
                  return 1;
+             }
              else
                  return -2;
          }
@@ -29,4 +38,5 @@ public class Check_Login extends files{
          }
          return -2 ;
     }
+
 }

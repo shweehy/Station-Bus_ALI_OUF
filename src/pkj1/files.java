@@ -86,15 +86,20 @@ abstract public class files {
       return object;
   }
     String Searched_iD (String fileName,String id){
+        boolean f1=false;
         ArrayList<ArrayList<String>> AList = new ArrayList<ArrayList<String>>();
-        String Searched=null;
+        String Searched = new String();
         AList = ReadFile(fileName);
+
         for (int i = 0; i < AList.size();i++)
-        {   if (AList.get(i).get(2).equals(id))
+        {   if (AList.get(i).get(2).equals(id)){
             Searched= AList.get(i).get(0);
+            f1=true;
+        }
 
-
-
+        }
+        if (f1==false) {
+            Searched = "not found";
         }
         return Searched;
 
