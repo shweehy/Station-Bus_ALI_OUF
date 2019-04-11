@@ -84,6 +84,7 @@ public class Gui1 extends Gui {
             Table t1 = new Table("Trips.txt");
         //    driver = 0;
             Table t2 = new Table("Reserved.txt");
+
             g1.add(h2, 0, 3);
             table = t1.table();
             //g1.add(table, 0, 0);
@@ -203,8 +204,20 @@ public class Gui1 extends Gui {
 
         } else {
             stage3.setTitle("Welcome Driver");
-//            s1 = new Scene(h1);
-            s1 = null;
+            Table t1 = new Table("Trips.txt");
+            table = t1.table2(id);
+//            Button Button_Driver = new Button("my reservations");
+            VBox hh = new VBox(10);
+            hh.getChildren().addAll(table);
+//            Button_Driver.setOnAction(e->{
+//                hh.getChildren().add(table);
+//
+//            });
+            g1.getChildren().add(hh);
+            //Add_Trips = new Scene(hh);
+            //stage3.setScene(Add_Trips);
+//            s1 = new Scene(hh);
+//            s1 = null;
 
         }
         s1 = new Scene(st);

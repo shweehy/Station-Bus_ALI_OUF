@@ -99,7 +99,6 @@ public class Table extends files {
         availableSeatsColumn.setCellValueFactory(new PropertyValueFactory<>("availableSeats"));
 
 
-
         TableColumn<Trips_reservation, String> Usercolu = new TableColumn<>("User");
         Usercolu.setMinWidth(100);
         Usercolu.setCellValueFactory(new PropertyValueFactory<>("User"));
@@ -109,10 +108,9 @@ public class Table extends files {
         Drivercolu.setCellValueFactory(new PropertyValueFactory<>("Driver"));
 
 
-
         table = new TableView<>();
         table.setItems(getTrips1(d));
-        table.getColumns().addAll(fromColumn, toColumn, vehicleColumn, TicketPrice, availableSeatsColumn,Usercolu,Drivercolu);
+        table.getColumns().addAll(fromColumn, toColumn, vehicleColumn, TicketPrice, availableSeatsColumn, Usercolu, Drivercolu);
 //        table.getColumns().addAll(fromColumn , toColumn , vehicleColumn , ticketPriceColumn , availableSeatsColumn);
 
         return table;
@@ -140,12 +138,66 @@ public class Table extends files {
         }
 
 
-
-
         return trips;
     }
 
+
+    TableView<Trips> table2(int d) {
+        TableView<Trips> table;
+
+
+        TableColumn<Trips, String> fromColumn = new TableColumn<>("From");
+        fromColumn.setMinWidth(100);
+        fromColumn.setCellValueFactory(new PropertyValueFactory<>("from"));
+
+        TableColumn<Trips, String> toColumn = new TableColumn<>("To");
+        toColumn.setMinWidth(100);
+        toColumn.setCellValueFactory(new PropertyValueFactory<>("to"));
+
+        TableColumn<Trips, String> vehicleColumn = new TableColumn<>("Vehicle");
+        vehicleColumn.setMinWidth(100);
+        vehicleColumn.setCellValueFactory(new PropertyValueFactory<>("vehicle"));
+
+        TableColumn<Trips, String> availableSeatsColumn = new TableColumn<>("Available Seats");
+        availableSeatsColumn.setMinWidth(120);
+        availableSeatsColumn.setCellValueFactory(new PropertyValueFactory<>("availableSeats"));
+
+
+        TableColumn<Trips, String> TicketPrice = new TableColumn<>("TicketPrice");
+        TicketPrice.setMinWidth(100);
+        TicketPrice.setCellValueFactory(new PropertyValueFactory<>("ticketPrice"));
+
+        table = new TableView<>();
+        table.setItems(getTrips2(d));
+        table.getColumns().addAll(fromColumn, toColumn, vehicleColumn);
+//        table.getColumns().addAll(fromColumn , toColumn , vehicleColumn , ticketPriceColumn , availableSeatsColumn);
+
+        return table;
+
     }
+
+    public ObservableList<Trips> getTrips2(int d) {
+        ObservableList<Trips> trips = FXCollections.observableArrayList();
+        ArrayList<ArrayList<String>> AList = new ArrayList<ArrayList<String>>();
+        AList = ReadFile(fileName);
+        String A[] = new String[6];
+        for (int i = 0; i < AList.size(); i++) {
+            if (Integer.toString(d).equals(AList.get(i).get(5))) {
+
+                for (int j = 0; j < 6; j++) {
+                    A[j] = AList.get(i).get(j);
+
+                }
+                trips.add(new Trips(((String) A[0]), A[1], A[2], A[3], A[4]));
+
+            }
+        }
+            return trips;
+
+
+
+    }
+}
 
 
 
