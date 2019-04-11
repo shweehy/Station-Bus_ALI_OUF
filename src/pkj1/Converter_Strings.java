@@ -20,5 +20,17 @@ public class Converter_Strings extends files {
         System.out.println(temp);
         return temp;
     }
+    String stringConverter_Driver(String A){
+        String temp = new String();
+        if (A.equals("Ahmed"))
+            temp = "0";
+        else if (A.equals("Shawky"))
+            temp = "1";
+        else if (A.equals("Mohamed"))
+            temp = "2";
+        else if (A.equals("Yassa"))
+            temp = "3";
+        return temp;
+    }
 
 }

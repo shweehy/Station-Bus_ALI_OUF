@@ -14,11 +14,11 @@ public class Add_User extends Check_Login {
         fileWriter.write("\n"+Name+","+Pass+","+i);
         fileWriter.close();
     }
-    public void Add_trip(String To,String From,String Vechile,String Price,String Seats,String fileName) {
+    public void Add_trip(String To,String From,String Vechile,String Price,String Seats,String fileName,String Driver) {
 //            String fileName = "Trips.txt";
         try {
             FileWriter fileWriter = new FileWriter(fileName,true);
-            fileWriter.write("\n"+To+","+From+","+Vechile+","+Price+","+Seats);
+            fileWriter.write("\n"+To+","+From+","+Vechile+","+Price+","+Seats+","+Driver);
             fileWriter.close();
         }
         catch (Exception e){

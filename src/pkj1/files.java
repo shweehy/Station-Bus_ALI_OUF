@@ -5,12 +5,12 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 
-abstract public class files {
-    public void OverWrite(String fileName) throws Exception {
-        FileWriter fileWriter = new FileWriter(fileName,true);
-        fileWriter.write("\n"+"Ahmed,123,14");
-        fileWriter.close();
-    }
+abstract public class files implements Filess_Interface{
+//    public void OverWrite(String fileName) throws Exception {
+//        FileWriter fileWriter = new FileWriter(fileName,true);
+//        fileWriter.write("\n"+"Ahmed,123,14");
+//        fileWriter.close();
+//    }
 
 
     public ArrayList ReadFile(String fileName) {
@@ -45,28 +45,28 @@ abstract public class files {
         }
         return AList;
     }
-    void deleteInFIles(String fileName,int index){
-        ArrayList<ArrayList<String>> AList = new ArrayList<ArrayList<String>>();
-        AList = ReadFile(fileName);
-        AList.remove(index);
-        try {
-            FileWriter fileWriter = new FileWriter(fileName, false) ;
-                for (int i = 0; i < AList.size(); i++) {
-                    for(int j =0; j<AList.get(i).size();j++) {
-
-                            fileWriter.write(AList.get(i).get(j)+",");
-
-                    }
-                    fileWriter.write("\n");
-                }
-                fileWriter.close();
-
-
-        }
-        catch (Exception e){
-            System.out.println("Eror1111r");
-        }
-    }
+//    void deleteInFIles(String fileName,int index){
+//        ArrayList<ArrayList<String>> AList = new ArrayList<ArrayList<String>>();
+//        AList = ReadFile(fileName);
+//        AList.remove(index);
+//        try {
+//            FileWriter fileWriter = new FileWriter(fileName, false) ;
+//                for (int i = 0; i < AList.size(); i++) {
+//                    for(int j =0; j<AList.get(i).size();j++) {
+//
+//                            fileWriter.write(AList.get(i).get(j)+",");
+//
+//                    }
+//                    fileWriter.write("\n");
+//                }
+//                fileWriter.close();
+//
+//
+//        }
+//        catch (Exception e){
+//            System.out.println("Eror1111r");
+//        }
+//    }
   public LinkedList Searched (String fileName, String Name){
 
       LinkedList<Integer> object = new LinkedList<Integer>();
@@ -85,7 +85,7 @@ abstract public class files {
 
       return object;
   }
-    String Searched_iD (String fileName,String id){
+    public String Searched_iD (String fileName,String id){
         boolean f1=false;
         ArrayList<ArrayList<String>> AList = new ArrayList<ArrayList<String>>();
         String Searched = new String();

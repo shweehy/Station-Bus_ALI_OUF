@@ -21,6 +21,7 @@ public class Gui1 extends Gui {
         ComboBox<String> C1_To = new ComboBox<String>();
         ComboBox<String> C1_From = new ComboBox<String>();
         ComboBox<String> C1_Vechile = new ComboBox<String>();
+        ComboBox<String> C1_Driver = new ComboBox<String>();
         TextField T_price = new TextField();
         T_price.setPromptText("Enter Price");
         TextField T_Seats = new TextField();
@@ -46,6 +47,8 @@ public class Gui1 extends Gui {
         C1_Vechile.setPromptText("Select Vehicle");
         C1_From.getItems().addAll("Alexandria", "Cairo", "Giza", "Suez", "Dahab");
         C1_Vechile.getItems().addAll("Bus", "MiniBus", "Lemozine");
+        C1_Driver.getItems().addAll("Ahmed", "Shawky", "Mohamed","Yassa");
+
         Button b1 = new Button("Reservation");
         Button b2 = new Button("My Reservations");
         Button B_Summit = new Button("Submit");
@@ -84,10 +87,10 @@ public class Gui1 extends Gui {
             table1 = t2.table_re(id, driver);
 
             b5.setOnAction(e -> {
-
+                Converter_Strings convert = new Converter_Strings();
                 HBox H3 = new HBox(10);
                 HBox H4 = new HBox(10);
-                H3.getChildren().addAll(C1_From, C1_To, C1_Vechile, T_price, T_Seats);
+                H3.getChildren().addAll(C1_From, C1_To, C1_Vechile,C1_Driver, T_price, T_Seats);
                 Button B_Add = new Button("Add the trip");
                 Label lf = new Label("");
                 H4.getChildren().addAll(lf, B_Add);
@@ -96,10 +99,10 @@ public class Gui1 extends Gui {
                 v1.getChildren().addAll(H3, H4);
                 Add_Trips = new Scene(v1);
                 B_Add.setOnAction(ex -> {
-                    if (C1_From.getValue() == null || C1_To.getValue() == null || C1_Vechile.getValue() == null || T_price.getText().equals("") || T_Seats.getText().equals(""))
+                    if (C1_From.getValue() == null || C1_To.getValue() == null || C1_Vechile.getValue() == null || T_price.getText().equals("") || T_Seats.getText().equals("")|| C1_Driver.getValue() == null)
                         lf.setText("Cannot Add");
                     else {
-                        x.Add_trip(C1_To.getValue().toString(), C1_From.getValue().toString(), C1_Vechile.getValue().toString(), T_price.getText(), T_Seats.getText(), "Trips.txt");
+                        x.Add_trip(C1_To.getValue().toString(), C1_From.getValue().toString(), C1_Vechile.getValue().toString(), T_price.getText(), T_Seats.getText(), "Trips.txt",convert.stringConverter_Driver(C1_Driver.getValue()));
                         lf.setText("Adding successful");
                     }
                 });
