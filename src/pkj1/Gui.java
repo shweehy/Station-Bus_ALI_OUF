@@ -57,10 +57,10 @@ public class Gui extends Application {
        b2.setOnAction(e->{
            int v = x.CheckAbility(fileName,t1.getText(),p1.getText());
            if(v==1) {
-               id=x.getId();
+               this.id=x.getId();
                l4.setText("login successful");
 //               Second_Screen();
-                new Gui1().User_Screen(flag1);
+                new Gui1().User_Screen(flag1,id);
 
                            }
            else

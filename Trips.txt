@@ -2,3 +2,4 @@ Dahab,Giza,Lemozine,12,21,
 Dahab,Cairo,Lemozine,12,21,
 Alexandria,Cairo,Bus,655,66
 Alexandria,Giza,Lemozine,12,12
+Alexandria,Cairo,MiniBus,120,10
