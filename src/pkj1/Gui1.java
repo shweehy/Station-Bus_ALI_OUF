@@ -105,7 +105,7 @@ public class Gui1 extends Gui {
                     if (C1_From.getValue() == null || C1_To.getValue() == null || C1_Vechile.getValue() == null || T_price.getText().equals("") || T_Seats.getText().equals("")|| C1_Driver.getValue() == null)
                         lf.setText("Cannot Add");
                     else {
-                        x.Add_trip(C1_To.getValue().toString(), C1_From.getValue().toString(), C1_Vechile.getValue().toString(), T_price.getText(), T_Seats.getText(), "Trips.txt",convert.stringConverter_Driver(C1_Driver.getValue()));
+                        x.Add_trip( C1_From.getValue().toString(),C1_To.getValue().toString(), C1_Vechile.getValue().toString(), T_price.getText(), T_Seats.getText(), "Trips.txt",convert.stringConverter_Driver(C1_Driver.getValue()));
                         lf.setText("Adding successful");
                     }
                 });
