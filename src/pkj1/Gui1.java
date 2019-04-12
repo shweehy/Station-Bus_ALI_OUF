@@ -107,15 +107,29 @@ public class Gui1 extends Gui {
         One.setSelected(true);
         Two.setToggleGroup(g2);
 
+        ToggleGroup g3 = new ToggleGroup();
+            RadioButton oone = new RadioButton("One stop");
+        RadioButton non = new RadioButton("non-stop");
+        RadioButton many = new RadioButton("many-stops");
+        oone.setToggleGroup(g3);
+        non.setToggleGroup(g3);
+        many.setToggleGroup(g3);
 
+
+        Label ls = new Label();
 
         HBox h1 = new HBox(10);
         HBox h2 = new HBox(10);
-        HBox h3 = new HBox(10);
+        HBox h3 = new HBox(100);
         HBox h4 = new HBox(10);
+        HBox h5 = new HBox(10);
+        HBox h6 = new HBox(10);
 
-        h3.getChildren().addAll(One, Two);
-        h4.getChildren().addAll(l_summit,l_summit_prompt);
+        h5.getChildren().addAll(One,Two);
+        h6.getChildren().addAll(oone, non, many);
+
+        h3.getChildren().addAll(h5,h6);
+        h4.getChildren().addAll(l_summit,l_summit_prompt,ls);
         h1.getChildren().addAll(Button_Myreservation,Button_Trips,b1, b2,  B_Summit, B_Delete_Reservation);
         h2.getChildren().addAll(b3, b4, b5, b6, deleteButton);
         GridPane g1 = new GridPane();
@@ -327,9 +341,23 @@ public class Gui1 extends Gui {
                 String e = table.getSelectionModel().getSelectedItem().getAvailableSeats();
                 String f = Integer.toString(id);
                 String g= convert.search_Driver_from_file(a,b,c,d,e);
+                if(!e.equals("0")){
                 x.Add_trip1(a, b, c, temp, e, f, g,"Reserved.txt");
                 x.Seats(a,b,c,d,e,"Trips.txt");
-                l_summit.setText("Summit successfully");}
+                l_summit.setText("Summit successfully");
+                if(oone.isSelected())
+                    ls.setText(oone.getText());
+                else if (non.isSelected())
+                    ls.setText(non.getText());
+                else if (many.isSelected())
+                    ls.setText(many.getText());
+                else
+                    ls.setText("");
+                }
+                else{
+                    l_summit.setText("no available seats");
+                    l_summit_prompt.setText("");
+                }}
 
                 else   if (flager2==2){
                   String temp = new String();
@@ -356,10 +384,24 @@ public class Gui1 extends Gui {
                     String e = table2.getSelectionModel().getSelectedItem().getAvailableSeats();
                     String f = Integer.toString(id);
                     String g= convert.search_Driver_from_file1(a,b,c,d,e);
+                    if(!e.equals("0")){
                     x.Add_trip1(a, b, c, temp, e, f, g,"Reserved_external.txt");
                     x.Seats(a,b,c,d,e,"Trips_external.txt");
-                    l_summit.setText("Summit successfully");}
-
+                    l_summit.setText("Summit successfully");
+                        if(oone.isSelected())
+                            ls.setText(oone.getText());
+                        else if (non.isSelected())
+                            ls.setText(non.getText());
+                        else if (many.isSelected())
+                            ls.setText(many.getText());
+                        else
+                            ls.setText("");
+                    }
+                }
+                else {
+                    l_summit.setText("cannot be added");
+                    l_summit_prompt.setText("");
+                }
             });
             B_Delete_Reservation.setOnAction(ef -> {
                 ObservableList<Trips_reservation> tripSelected, alltrips;
