@@ -16,12 +16,14 @@ import javafx.stage.Stage;
 public class Gui1 extends Gui {
     Converter_Strings convert = new Converter_Strings();
     int flager;//falger for deleting items from manger trips;
-
+    int flager2;//flager for user
     void User_Screen(int flage, int id) {
         Scene s1;
         TableView<Trips> table;
         TableView<Trips> table2;
         TableView<Trips_reservation> table1;
+        TableView<Trips_reservation> table3;
+
         ComboBox<String> C1_To = new ComboBox<String>();
         ComboBox<String> C1_From = new ComboBox<String>();
         ComboBox<String> C1_Vechile = new ComboBox<String>();
@@ -82,8 +84,10 @@ public class Gui1 extends Gui {
 
         C1_Driver.getItems().addAll("Ahmed", "Shawky", "Mohamed","Yassa");
 
-        Button b1 = new Button("Reservation");
-        Button b2 = new Button("My Reservations");
+        Button b1 = new Button("Reservation-internal");
+        Button b2 = new Button("My Reservations-internal");
+        Button Button_Myreservation = new Button("My Reservations-external");
+        Button Button_Trips = new Button("Reservations-external");
         Button B_Summit = new Button("Submit");
         Button B_Delete_Reservation = new Button("Delete Trip");
         B_Delete_Reservation.setDisable(true);
@@ -94,9 +98,23 @@ public class Gui1 extends Gui {
         Button b4 = new Button("External-Trips");
         Button b6 = new Button("Reserved Trips");
         Button b5 = new Button("Add Trips");
+
+        ToggleGroup g2 = new ToggleGroup();
+        RadioButton One = new RadioButton("One-Way-trip");
+        RadioButton Two = new RadioButton("Round-trip");
+        One.setToggleGroup(g2);
+        One.setSelected(true);
+        Two.setToggleGroup(g2);
+
+
+
         HBox h1 = new HBox(10);
         HBox h2 = new HBox(10);
-        h1.getChildren().addAll(b1, b2,  B_Summit, B_Delete_Reservation,l_summit);
+        HBox h3 = new HBox(10);
+
+        h3.getChildren().addAll(One, Two);
+
+        h1.getChildren().addAll(Button_Myreservation,Button_Trips,b1, b2,  B_Summit, B_Delete_Reservation,l_summit);
         h2.getChildren().addAll(b3, b4, b5, b6, deleteButton);
         GridPane g1 = new GridPane();
 //        g1.setMinSize(600, 600);
@@ -213,16 +231,24 @@ public class Gui1 extends Gui {
 
         } else if (flage == 3) {
             stage3.setTitle("Welcome User");
+
             Table t1 = new Table("Trips.txt");
             Table t2 = new Table("Reserved.txt");
-            g1.add(h1, 0, 3);
+            Table t3 = new Table("Reserved_external.txt");
+            Table t4 = new Table("Trips_external.txt");
+
+            g1.add(h1, 0, 4);
+            g1.add(h3, 0, 3);
+
             table = t1.table();
-            // driver here is not constatn
-            driver = 0;
             table1 = t2.table_re(id);
+            table2 = t4.table();
+            table3 = t3.table_re(id);
             b2.setOnAction(ed -> {
                 g1.getChildren().remove(table);
                 g1.getChildren().remove(table1);
+                g1.getChildren().remove(table2);
+                g1.getChildren().remove(table3);
                 t1.table();
                 table1.refresh();
                 g1.add(table1, 0, 0);
@@ -231,9 +257,25 @@ public class Gui1 extends Gui {
                 B_Summit.setDisable(true);
 
             });
+            Button_Myreservation.setOnAction(ed -> {
+                g1.getChildren().remove(table);
+                g1.getChildren().remove(table1);
+                g1.getChildren().remove(table2);
+                g1.getChildren().remove(table3);
+                t1.table();
+                table1.refresh();
+                g1.add(table3, 0, 0);
+                l_summit.setText("");
+                B_Delete_Reservation.setDisable(false);
+                B_Summit.setDisable(true);
+
+            });
             b1.setOnAction(ec -> {
+                flager2=1;
                 g1.getChildren().remove(table1);
                 g1.getChildren().remove(table);
+                g1.getChildren().remove(table2);
+                g1.getChildren().remove(table3);
                 t2.table_re(id);
                 table.refresh();
                 g1.add(table, 0, 0);
@@ -242,7 +284,22 @@ public class Gui1 extends Gui {
                 B_Summit.setDisable(false);
 
             });
+            Button_Trips.setOnAction(ec -> {
+                flager2=2;
+                g1.getChildren().remove(table1);
+                g1.getChildren().remove(table);
+                g1.getChildren().remove(table2);
+                g1.getChildren().remove(table3);
+                g1.add(table2, 0, 0);
+                l_summit.setText("");
+                B_Delete_Reservation.setDisable(true);
+                B_Summit.setDisable(false);
+
+            });
+
+
             B_Summit.setOnAction(ef -> {
+                if (flager2==1){
                 ObservableList<Trips> tripSelected, alltrips;
                 String a = table.getSelectionModel().getSelectedItem().getFrom();
                 String b = table.getSelectionModel().getSelectedItem().getTo();
@@ -252,7 +309,19 @@ public class Gui1 extends Gui {
                 String f = Integer.toString(id);
                 String g= convert.search_Driver_from_file(a,b,c,d,e);
                 x.Add_trip1(a, b, c, d, e, f, g,"Reserved.txt");
-                l_summit.setText("Summit successfully");
+                l_summit.setText("Summit successfully");}
+              else   if (flager2==2){
+                    ObservableList<Trips> tripSelected, alltrips;
+                    String a = table2.getSelectionModel().getSelectedItem().getFrom();
+                    String b = table2.getSelectionModel().getSelectedItem().getTo();
+                    String c = table2.getSelectionModel().getSelectedItem().getVehicle();
+                    String d = table2.getSelectionModel().getSelectedItem().getTicketPrice();
+                    String e = table2.getSelectionModel().getSelectedItem().getAvailableSeats();
+                    String f = Integer.toString(id);
+                    String g= convert.search_Driver_from_file1(a,b,c,d,e);
+                    x.Add_trip1(a, b, c, d, e, f, g,"Reserved_external.txt");
+                    l_summit.setText("Summit successfully");}
+
             });
             B_Delete_Reservation.setOnAction(ef -> {
                 ObservableList<Trips_reservation> tripSelected, alltrips;
@@ -298,6 +367,8 @@ public class Gui1 extends Gui {
 
         }
         s1 = new Scene(st);
+        stage3.setMinWidth(400);
+        stage3.setMinHeight(400);
         stage3.setScene(s1);
         stage3.show();
 

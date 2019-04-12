@@ -55,6 +55,17 @@ public class Converter_Strings extends files {
         }
         return stringConverter_Driver1(temp);
     }
+    String search_Driver_from_file1(String From,String To,String Vechile,String Price,String Seats){
+        String fileName = "Trips_external.txt";
+        ArrayList<ArrayList<String>> AList = new ArrayList<ArrayList<String>>();
+        String temp=null;
+        AList = ReadFile(fileName);
+        for (int i = 0; i < AList.size();i++)
+        { if(AList.get(i).get(0).equals(From)&&AList.get(i).get(1).equals(To)&&AList.get(i).get(2).equals(Vechile)&&AList.get(i).get(3).equals(Price)&&AList.get(i).get(4).equals(Seats))
+            temp = AList.get(i).get(5);
+        }
+        return stringConverter_Driver1(temp);
+    }
 
 
 }
