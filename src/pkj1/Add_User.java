@@ -70,8 +70,8 @@ public class Add_User extends Check_Login {
         }
 
     }
-    void Delete_Item_Reserved(String From,String To,String Vechile,String Price,String Seats,String User){
-        String fileName = "Reserved.txt";
+    void Delete_Item_Reserved(String From,String To,String Vechile,String Price,String Seats,String User,String fileName){
+        //String fileName = "Reserved.txt";
         ArrayList<ArrayList<String>> AList = new ArrayList<ArrayList<String>>();
         Converter_Strings xo = new Converter_Strings();
 
@@ -104,5 +104,84 @@ public class Add_User extends Check_Login {
         }
 
     }
+    void Seats(String From,String To,String Vechile,String Price,String Seats/*,String User*/,String fileName){
+        //String fileName = "Reserved.txt";
+        ArrayList<ArrayList<String>> AList = new ArrayList<ArrayList<String>>();
+            int i;
+        int a;
+        AList = ReadFile(fileName);
+        for (i= 0; i < AList.size();i++)
+        { if(AList.get(i).get(0).equals(From)&&AList.get(i).get(1).equals(To)&&AList.get(i).get(2).equals(Vechile)/*&&AList.get(i).get(3).equals(Price)&&AList.get(i).get(4).equals(Seats)*/)
+        {
+            break;
+        }
 
+        }
+         a = Integer.parseInt(AList.get(i).get(4));
+        a--;
+        AList.get(i).remove(4) ;
+        AList.get(i).add(4, String.valueOf(a)) ;
+
+
+        try {
+            FileWriter fileWriter = new FileWriter(fileName, false) ;
+            for (int k= 0; k < AList.size(); k++) {
+                for(int j =0; j<AList.get(k).size();j++) {
+
+                    fileWriter.write(AList.get(k).get(j)+",");
+
+
+                }
+                if (k!=AList.size()-1)
+                    fileWriter.write("\n");
+
+            }
+            fileWriter.close();
+
+
+        }
+        catch (Exception e){
+            System.out.println("Eror1111r");
+        }
+    }
+    void Seats_add(String From,String To,String Vechile/*,String PriceString Seats*/,String fileName){
+        //String fileName = "Reserved.txt";
+        ArrayList<ArrayList<String>> AList = new ArrayList<ArrayList<String>>();
+        int i;
+        int a;
+        AList = ReadFile(fileName);
+        for (i= 0; i < AList.size();i++)
+        { if(AList.get(i).get(0).equals(From)&&AList.get(i).get(1).equals(To)&&AList.get(i).get(2).equals(Vechile)/*&&AList.get(i).get(3).equals(Price)&&AList.get(i).get(4).equals(Seats)*/)
+        {
+            break;
+        }
+
+        }
+        a = Integer.parseInt(AList.get(i).get(4));
+        a++;
+        AList.get(i).remove(4) ;
+        AList.get(i).add(4, String.valueOf(a)) ;
+
+
+        try {
+            FileWriter fileWriter = new FileWriter(fileName, false) ;
+            for (int k= 0; k < AList.size(); k++) {
+                for(int j =0; j<AList.get(k).size();j++) {
+
+                    fileWriter.write(AList.get(k).get(j)+",");
+
+
+                }
+                if (k!=AList.size()-1)
+                    fileWriter.write("\n");
+
+            }
+            fileWriter.close();
+
+
+        }
+        catch (Exception e){
+            System.out.println("Eror1111r");
+        }
+    }
 }

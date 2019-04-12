@@ -92,6 +92,7 @@ public class Gui1 extends Gui {
         Button B_Delete_Reservation = new Button("Delete Trip");
         B_Delete_Reservation.setDisable(true);
         Label l_summit = new Label();
+        Label l_summit_prompt = new Label();
         Button b3 = new Button("Internal-Trips");
         Button deleteButton = new Button("Delete");
         deleteButton.setDisable(true);
@@ -111,10 +112,11 @@ public class Gui1 extends Gui {
         HBox h1 = new HBox(10);
         HBox h2 = new HBox(10);
         HBox h3 = new HBox(10);
+        HBox h4 = new HBox(10);
 
         h3.getChildren().addAll(One, Two);
-
-        h1.getChildren().addAll(Button_Myreservation,Button_Trips,b1, b2,  B_Summit, B_Delete_Reservation,l_summit);
+        h4.getChildren().addAll(l_summit,l_summit_prompt);
+        h1.getChildren().addAll(Button_Myreservation,Button_Trips,b1, b2,  B_Summit, B_Delete_Reservation);
         h2.getChildren().addAll(b3, b4, b5, b6, deleteButton);
         GridPane g1 = new GridPane();
 //        g1.setMinSize(600, 600);
@@ -237,7 +239,8 @@ public class Gui1 extends Gui {
             Table t3 = new Table("Reserved_external.txt");
             Table t4 = new Table("Trips_external.txt");
 
-            g1.add(h1, 0, 4);
+            g1.add(h1, 0, 5);
+            g1.add(h4, 0, 4);
             g1.add(h3, 0, 3);
 
             table = t1.table();
@@ -245,6 +248,7 @@ public class Gui1 extends Gui {
             table2 = t4.table();
             table3 = t3.table_re(id);
             b2.setOnAction(ed -> {
+                flager2=1;
                 g1.getChildren().remove(table);
                 g1.getChildren().remove(table1);
                 g1.getChildren().remove(table2);
@@ -258,6 +262,7 @@ public class Gui1 extends Gui {
 
             });
             Button_Myreservation.setOnAction(ed -> {
+                flager2 =2;
                 g1.getChildren().remove(table);
                 g1.getChildren().remove(table1);
                 g1.getChildren().remove(table2);
@@ -300,42 +305,98 @@ public class Gui1 extends Gui {
 
             B_Summit.setOnAction(ef -> {
                 if (flager2==1){
+                    String temp = new String();
+                    String temp1= new String();
+                    String temp2= new String();
+                    String temp4= new String();
+                    temp2 = "-x2";
                 ObservableList<Trips> tripSelected, alltrips;
                 String a = table.getSelectionModel().getSelectedItem().getFrom();
                 String b = table.getSelectionModel().getSelectedItem().getTo();
+                    temp1 = b;
                 String c = table.getSelectionModel().getSelectedItem().getVehicle();
                 String d = table.getSelectionModel().getSelectedItem().getTicketPrice();
+                    temp =d;
+                    if(Two.isSelected()){
+                        int aa = Integer.parseInt(d);
+                        aa = (int)(aa*2-(aa*0.1));
+                        temp= String.valueOf(aa);
+                        temp1 = temp1.concat(temp2);
+                        l_summit_prompt.setText("your trip is rounded with discount");
+                    }
                 String e = table.getSelectionModel().getSelectedItem().getAvailableSeats();
                 String f = Integer.toString(id);
                 String g= convert.search_Driver_from_file(a,b,c,d,e);
-                x.Add_trip1(a, b, c, d, e, f, g,"Reserved.txt");
+                x.Add_trip1(a, b, c, temp, e, f, g,"Reserved.txt");
+                x.Seats(a,b,c,d,e,"Trips.txt");
                 l_summit.setText("Summit successfully");}
-              else   if (flager2==2){
+
+                else   if (flager2==2){
+                  String temp = new String();
+                  String temp1= new String();
+                  String temp2= new String();
+                  temp2 = "-x2";
                     ObservableList<Trips> tripSelected, alltrips;
                     String a = table2.getSelectionModel().getSelectedItem().getFrom();
                     String b = table2.getSelectionModel().getSelectedItem().getTo();
+                    temp1 =b;
+
                     String c = table2.getSelectionModel().getSelectedItem().getVehicle();
                     String d = table2.getSelectionModel().getSelectedItem().getTicketPrice();
+                    temp =d;
+                    if(Two.isSelected()){
+                        int aa = Integer.parseInt(d);
+                        aa = (int)(aa*2-(aa*0.1));
+                        l_summit_prompt.setText("your trip is rounded with discount");
+                        temp1 = temp1.concat(temp2);
+                        temp= String.valueOf(aa);
+                    }
+//                   d=temp;
+
                     String e = table2.getSelectionModel().getSelectedItem().getAvailableSeats();
                     String f = Integer.toString(id);
                     String g= convert.search_Driver_from_file1(a,b,c,d,e);
-                    x.Add_trip1(a, b, c, d, e, f, g,"Reserved_external.txt");
+                    x.Add_trip1(a, b, c, temp, e, f, g,"Reserved_external.txt");
+                    x.Seats(a,b,c,d,e,"Trips_external.txt");
                     l_summit.setText("Summit successfully");}
 
             });
             B_Delete_Reservation.setOnAction(ef -> {
                 ObservableList<Trips_reservation> tripSelected, alltrips;
+                if (flager2 == 1) {
+                    String tmp;
+                    String a = table1.getSelectionModel().getSelectedItem().getFrom();
+                    String b = table1.getSelectionModel().getSelectedItem().getTo();
+                    String c = table1.getSelectionModel().getSelectedItem().getVehicle();
+                    String d = table1.getSelectionModel().getSelectedItem().getTicketPrice();
+                    String e = table1.getSelectionModel().getSelectedItem().getAvailableSeats();
+                    tmp = e;
+                    String f = table1.getSelectionModel().getSelectedItem().getUser();
+                    x.Seats_add(a,b,c,"Trips.txt");
+                    x.Delete_Item_Reserved(a, b, c, d, e, f,"Reserved.txt");
+                    alltrips = table1.getItems();
+                    tripSelected = table1.getSelectionModel().getSelectedItems();
+                    tripSelected.forEach(alltrips::remove);
 
-                String a = table1.getSelectionModel().getSelectedItem().getFrom();
-                String b = table1.getSelectionModel().getSelectedItem().getTo();
-                String c = table1.getSelectionModel().getSelectedItem().getVehicle();
-                String d = table1.getSelectionModel().getSelectedItem().getTicketPrice();
-                String e = table1.getSelectionModel().getSelectedItem().getAvailableSeats();
-                String f = table1.getSelectionModel().getSelectedItem().getUser();
-                x.Delete_Item_Reserved(a, b, c, d, e, f);
-                alltrips = table1.getItems();
-                tripSelected = table1.getSelectionModel().getSelectedItems();
-                tripSelected.forEach(alltrips::remove);
+
+                }
+                if (flager2 == 2) {
+                    String tmp;
+                    String a = table3.getSelectionModel().getSelectedItem().getFrom();
+                    String b = table3.getSelectionModel().getSelectedItem().getTo();
+                    String c = table3.getSelectionModel().getSelectedItem().getVehicle();
+                    String d = table3.getSelectionModel().getSelectedItem().getTicketPrice();
+                    String e = table3.getSelectionModel().getSelectedItem().getAvailableSeats();
+                    tmp = e;
+                    String f = table3.getSelectionModel().getSelectedItem().getUser();
+                    x.Seats_add(a,b,c,"Trips_external.txt");
+
+                    x.Delete_Item_Reserved(a, b, c, d, e, f,"Reserved_external.txt");
+                    alltrips = table3.getItems();
+                    tripSelected = table3.getSelectionModel().getSelectedItems();
+                    tripSelected.forEach(alltrips::remove);
+
+                }
             });
 
         } else {

@@ -1,1 +1,3 @@
-Berlin,Madrid,Bus,2000,12,0,Ahmed
+Berlin,Madrid,Bus,2000,12,3,Ahmed,
+Berlin,Madrid,Bus,3800,12,3,Ahmed,
+Berlin,Madrid,Bus,3800,12,0,Ahmed,

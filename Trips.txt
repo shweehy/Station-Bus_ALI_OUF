@@ -1,6 +1,6 @@
 Dahab,Giza,Lemozine,12,21,0,
-Cairo,Giza,MiniBus,55,55,2,
+Cairo,Giza,MiniBus,55,52,2,
 Alexandria,Giza,Bus,12,500,3,
 Alexandria,Suez,Lemozine,200,12,3,
 Alexandria,Suez,Bus,12,12,0,
-Alexandria,Dahab,Lemozine,12,111,0,
+Alexandria,Dahab,Lemozine,12,112,0,
