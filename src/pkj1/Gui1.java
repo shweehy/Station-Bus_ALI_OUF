@@ -15,16 +15,20 @@ import javafx.stage.Stage;
 
 public class Gui1 extends Gui {
     Converter_Strings convert = new Converter_Strings();
+    int flager;//falger for deleting items from manger trips;
 
     void User_Screen(int flage, int id) {
-
         Scene s1;
         TableView<Trips> table;
+        TableView<Trips> table2;
         TableView<Trips_reservation> table1;
         ComboBox<String> C1_To = new ComboBox<String>();
         ComboBox<String> C1_From = new ComboBox<String>();
         ComboBox<String> C1_Vechile = new ComboBox<String>();
         ComboBox<String> C1_Driver = new ComboBox<String>();
+        ComboBox<String> C1_Types = new ComboBox<String>();
+        C1_Driver.setPromptText("Driver");
+        C1_Types.setPromptText("Trip Type");
         TextField T_price = new TextField();
         T_price.setPromptText("Enter Price");
         TextField T_Seats = new TextField();
@@ -44,12 +48,38 @@ public class Gui1 extends Gui {
                     T_Seats.setText(oldValue);
             }
         });
-        C1_To.getItems().addAll("Alexandria", "Cairo", "Giza", "Suez", "Dahab");
         C1_From.setPromptText("From");
         C1_To.setPromptText("To");
         C1_Vechile.setPromptText("Select Vehicle");
-        C1_From.getItems().addAll("Alexandria", "Cairo", "Giza", "Suez", "Dahab");
-        C1_Vechile.getItems().addAll("Bus", "MiniBus", "Lemozine");
+        C1_Types.getItems().addAll("Internal", "External");
+        C1_Types.setOnAction(e->{
+            if(C1_Types.getValue().equals("Internal"))
+            {
+                C1_To.getItems().removeAll("Berlin", "Paris", "Madrid", "Zurich", "London");
+                C1_From.getItems().removeAll("Berlin", "Paris", "Madrid", "Zurich", "London");
+                C1_Vechile.getItems().removeAll("Bus", "MiniBus", "Lemozine");
+
+
+                C1_To.getItems().addAll("Alexandria", "Cairo", "Giza", "Suez", "Dahab");
+                C1_From.getItems().addAll("Alexandria", "Cairo", "Giza", "Suez", "Dahab");
+                C1_Vechile.getItems().addAll("Bus", "MiniBus", "Lemozine");
+            }
+            else
+            {
+                C1_To.getItems().removeAll("Alexandria", "Cairo", "Giza", "Suez", "Dahab");
+                C1_From.getItems().removeAll("Alexandria", "Cairo", "Giza", "Suez", "Dahab");
+                C1_Vechile.getItems().removeAll("Bus", "MiniBus", "Lemozine");
+
+                C1_To.getItems().addAll("Berlin", "Paris", "Madrid", "Zurich", "London");
+                C1_From.getItems().addAll("Berlin", "Paris", "Madrid", "Zurich", "London");
+                C1_Vechile.getItems().addAll("Bus", "MiniBus", "Lemozine");
+            }
+        });
+//        C1_To.getItems().addAll("Alexandria", "Cairo", "Giza", "Suez", "Dahab");
+//        C1_From.getItems().addAll("Alexandria", "Cairo", "Giza", "Suez", "Dahab");
+//        C1_Vechile.getItems().addAll("Bus", "MiniBus", "Lemozine");
+//
+
         C1_Driver.getItems().addAll("Ahmed", "Shawky", "Mohamed","Yassa");
 
         Button b1 = new Button("Reservation");
@@ -58,9 +88,10 @@ public class Gui1 extends Gui {
         Button B_Delete_Reservation = new Button("Delete Trip");
         B_Delete_Reservation.setDisable(true);
         Label l_summit = new Label();
-        Button b3 = new Button("Trips");
+        Button b3 = new Button("Internal-Trips");
         Button deleteButton = new Button("Delete");
-        Button b4 = new Button("Drivers");
+        deleteButton.setDisable(true);
+        Button b4 = new Button("External-Trips");
         Button b6 = new Button("Reserved Trips");
         Button b5 = new Button("Add Trips");
         HBox h1 = new HBox(10);
@@ -82,18 +113,21 @@ public class Gui1 extends Gui {
         if (flage == 1) {
             stage3.setTitle("Welcome Manger");
             Table t1 = new Table("Trips.txt");
+            Table t3 = new Table("Trips_external.txt");
+
         //    driver = 0;
             Table t2 = new Table("Reserved.txt");
 
             g1.add(h2, 0, 3);
             table = t1.table();
+            table2 = t3.table();
             //g1.add(table, 0, 0);
             table1 = t2.table_re(id);
 
             b5.setOnAction(e -> {
                 HBox H3 = new HBox(10);
                 HBox H4 = new HBox(10);
-                H3.getChildren().addAll(C1_From, C1_To, C1_Vechile,C1_Driver, T_price, T_Seats);
+                H3.getChildren().addAll(C1_Types,C1_From, C1_To, C1_Vechile,C1_Driver, T_price, T_Seats);
                 Button B_Add = new Button("Add the trip");
                 Label lf = new Label("");
                 H4.getChildren().addAll(lf, B_Add);
@@ -105,7 +139,13 @@ public class Gui1 extends Gui {
                     if (C1_From.getValue() == null || C1_To.getValue() == null || C1_Vechile.getValue() == null || T_price.getText().equals("") || T_Seats.getText().equals("")|| C1_Driver.getValue() == null)
                         lf.setText("Cannot Add");
                     else {
-                        x.Add_trip( C1_From.getValue().toString(),C1_To.getValue().toString(), C1_Vechile.getValue().toString(), T_price.getText(), T_Seats.getText(), "Trips.txt",convert.stringConverter_Driver(C1_Driver.getValue()));
+                        String file1;
+                        if (C1_Types.getValue().equals("Internal"))
+                        file1 = "Trips.txt";
+                        else {
+                            file1 = "Trips_external.txt";
+                        }
+                        x.Add_trip( C1_From.getValue().toString(),C1_To.getValue().toString(), C1_Vechile.getValue().toString(), T_price.getText(), T_Seats.getText(), file1,convert.stringConverter_Driver(C1_Driver.getValue()));
                         lf.setText("Adding successful");
                     }
                 });
@@ -115,34 +155,59 @@ public class Gui1 extends Gui {
             });
             deleteButton.setOnAction(eb -> {
                 ObservableList<Trips> tripSelected, alltrips;
-
-                String a = table.getSelectionModel().getSelectedItem().getFrom();
-                String b = table.getSelectionModel().getSelectedItem().getTo();
-                String c = table.getSelectionModel().getSelectedItem().getVehicle();
-                String d = table.getSelectionModel().getSelectedItem().getTicketPrice();
-                String e = table.getSelectionModel().getSelectedItem().getAvailableSeats();
-                x.Delete_Item(a, b, c, d, e);
-                alltrips = table.getItems();
-                tripSelected = table.getSelectionModel().getSelectedItems();
-                tripSelected.forEach(alltrips::remove);
-
+                if (flager==2) {
+                    String a = table.getSelectionModel().getSelectedItem().getFrom();
+                    String b = table.getSelectionModel().getSelectedItem().getTo();
+                    String c = table.getSelectionModel().getSelectedItem().getVehicle();
+                    String d = table.getSelectionModel().getSelectedItem().getTicketPrice();
+                    String e = table.getSelectionModel().getSelectedItem().getAvailableSeats();
+                    x.Delete_Item(a, b, c, d, e,"Trips.txt");
+                    alltrips = table.getItems();
+                    tripSelected = table.getSelectionModel().getSelectedItems();
+                    tripSelected.forEach(alltrips::remove);
+                }
+                else if (flager==1){
+                    String a = table2.getSelectionModel().getSelectedItem().getFrom();
+                    String b = table2.getSelectionModel().getSelectedItem().getTo();
+                    String c = table2.getSelectionModel().getSelectedItem().getVehicle();
+                    String d = table2.getSelectionModel().getSelectedItem().getTicketPrice();
+                    String e = table2.getSelectionModel().getSelectedItem().getAvailableSeats();
+                    x.Delete_Item(a, b, c, d, e,"Trips_external.txt");
+                    alltrips = table2.getItems();
+                    tripSelected = table2.getSelectionModel().getSelectedItems();
+                    tripSelected.forEach(alltrips::remove);
+                }
 
             });
-            b3.setOnAction(e->{
+            b4.setOnAction(e->{
+                deleteButton.setDisable(false);
                 g1.getChildren().remove(table);
                 g1.getChildren().remove(table1);
+                g1.getChildren().remove(table2);
+                t3.table();
+                g1.add(table2, 0, 0);
+                flager = 1;
+            });
+            b3.setOnAction(e->{
+                deleteButton.setDisable(false);
+                g1.getChildren().remove(table);
+                g1.getChildren().remove(table1);
+                g1.getChildren().remove(table2);
                 t1.table();
                 g1.add(table, 0, 0);
-
+                flager =2;
 
 
 
             });
 
             b6.setOnAction(e->{
+                deleteButton.setDisable(true);
                 g1.getChildren().remove(table1);
                 g1.getChildren().remove(table);
+                g1.getChildren().remove(table2);
                 t2.table_re(id);
+
                 g1.add(table1, 0, 0);
             });
 
@@ -159,6 +224,7 @@ public class Gui1 extends Gui {
                 g1.getChildren().remove(table);
                 g1.getChildren().remove(table1);
                 t1.table();
+                table1.refresh();
                 g1.add(table1, 0, 0);
                 l_summit.setText("");
                 B_Delete_Reservation.setDisable(false);
@@ -169,6 +235,7 @@ public class Gui1 extends Gui {
                 g1.getChildren().remove(table1);
                 g1.getChildren().remove(table);
                 t2.table_re(id);
+                table.refresh();
                 g1.add(table, 0, 0);
                 l_summit.setText("");
                 B_Delete_Reservation.setDisable(true);
@@ -205,19 +272,29 @@ public class Gui1 extends Gui {
         } else {
             stage3.setTitle("Welcome Driver");
             Table t1 = new Table("Trips.txt");
+            Table t2 = new Table("Trips_external.txt");
+            table2 = t2.table2(id);
             table = t1.table2(id);
-//            Button Button_Driver = new Button("my reservations");
+            Button buttond1 = new Button("Internal");
+            Button buttond2 = new Button("external");
+            HBox HH1 = new HBox(10);
             VBox hh = new VBox(10);
-            hh.getChildren().addAll(table);
-//            Button_Driver.setOnAction(e->{
-//                hh.getChildren().add(table);
-//
-//            });
-            g1.getChildren().add(hh);
-            //Add_Trips = new Scene(hh);
-            //stage3.setScene(Add_Trips);
-//            s1 = new Scene(hh);
-//            s1 = null;
+            hh.getChildren().add(HH1);
+            HH1.getChildren().addAll(buttond1, buttond2);
+            buttond1.setOnAction(e->{
+                hh.getChildren().removeAll(table, table2);
+                hh.getChildren().addAll(table);
+            });
+            buttond2.setOnAction(e->{
+                hh.getChildren().removeAll(table, table2);
+                hh.getChildren().addAll(table2);
+            });
+
+
+
+            g1.getChildren().addAll(hh);
+//            g1.getChildren().add(HH1);
+
 
         }
         s1 = new Scene(st);

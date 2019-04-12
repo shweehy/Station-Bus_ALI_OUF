@@ -26,8 +26,8 @@ public class Add_User extends Check_Login {
         }
 
     }
-    void Delete_Item(String From,String To,String Vechile,String Price,String Seats){
-        String fileName = "Trips.txt";
+    void Delete_Item(String From,String To,String Vechile,String Price,String Seats,String fileName){
+//        String fileName = "Trips.txt";
         ArrayList<ArrayList<String>> AList = new ArrayList<ArrayList<String>>();
         AList = ReadFile(fileName);
         for (int i = 0; i < AList.size();i++)
